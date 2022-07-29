@@ -17,12 +17,13 @@ public class A6 {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/A6?user=root");
         
-        // setupDatabase(con); Uncomment this in order to set up database.
+        // setupDatabase(con); //Uncomment this in order to set up database.
         
         Scanner scanner = new Scanner(System.in);
+        // Infinite loop of getting user input.
         while (true) {
         	System.out.println("What would you like to do? (Type 'get', 'get all', 'update', or 'delete')");
-        	String input = scanner.nextLine();
+        	String input = scanner.nextLine().trim();
         	int id;
         	
         	switch (input) {
@@ -66,9 +67,16 @@ public class A6 {
         CallableStatement cst=con.prepareCall("{call deleteEmp(?)}");
         cst.setInt(1, id);
         cst.execute();
+        int x = cst.getUpdateCount();
         
-        System.out.println("Deleted Employee " + id);
-	}
+        if (x==0) {
+        	System.out.println("Failure- No employees deleted. Please choose an existing id.");
+        }
+        else if (x == 1) {
+        	System.out.println("Deleted Employee with id " + id);
+        }
+        System.out.println();
+}
 
 	private static void getEmployees(Connection con) throws SQLException {
         PreparedStatement pst=con.prepareStatement("select * from emp");
@@ -81,8 +89,8 @@ public class A6 {
 		String attrib = "";
 		
 		while (goodInput == false) {
-			System.out.println("Which attribute would you like to change? (Type name or age) ");
-			attrib = scanner.nextLine();
+			System.out.println("Which attribute would you like to change? (Type 'name' or 'age') ");
+			attrib = scanner.nextLine().trim();
 			
 			if (attrib.equals("name") || attrib.equals("age")) {
 				goodInput = true;
@@ -91,14 +99,20 @@ public class A6 {
 		System.out.println("What would you like to change the " + attrib + " to? ");
 		String value = scanner.nextLine();
 		
+		// I put attrib in the string rather than as a ? parameter because doing so results in an SQL error.
+		// Based on research, it seems like prepareStatement optimizes based on the query, and does not anticipate me making a column name a parameter.
         PreparedStatement pst=con.prepareStatement("update emp set " + attrib + "=? where id=?");
         pst.setString(1, value);
         pst.setInt(2, id);
         int x=pst.executeUpdate();
         
-        System.out.println("Updated Employee " + id);
-
-		
+        if (x == 0) {
+        	System.out.println("Failure- No employees updated. Please choose an existing id");
+        }
+        else if (x == 1) {
+        	System.out.println("Updated " + x + " Employee with id " + id);
+        }
+        System.out.println();
 	}
 
 	static int getId(Scanner scanner) {
@@ -109,6 +123,7 @@ public class A6 {
 		try {
 			i =scanner.nextInt();
 			goodId = true;
+			scanner.nextLine(); // I run this so that this line isn't read at nextLine in the main while loop, which results in a double print of the intro message..
 		}
 		catch (InputMismatchException e) {
 			System.out.println("Please enter an integer for the id.");
@@ -145,7 +160,7 @@ public class A6 {
 		
 	}
 	
-	// Sets up all of the data in the database. 
+	static // Sets up all of the data in the database. 
 	// The call to it is commented out as a duplicate key error would occur if it was run again.
 	void setupDatabase(Connection con) throws SQLException {
         CallableStatement cst=con.prepareCall("{call insertEmp(?,?,?)}");
@@ -156,7 +171,7 @@ public class A6 {
 			END
          */
         cst.setInt(1, 1);
-        cst.setString(2, "Christian");
+        cst.setString(2, "Kris");
         cst.setInt(3, 22);
         cst.execute();
         cst.setInt(1, 2);
