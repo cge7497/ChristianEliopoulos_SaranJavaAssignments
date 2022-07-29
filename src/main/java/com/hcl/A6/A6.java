@@ -160,9 +160,9 @@ public class A6 {
 		
 	}
 	
-	static // Sets up all of the data in the database. 
+	 // Sets up all of the data in the database. 
 	// The call to it is commented out as a duplicate key error would occur if it was run again.
-	void setupDatabase(Connection con) throws SQLException {
+	static void setupDatabase(Connection con) throws SQLException {
         CallableStatement cst=con.prepareCall("{call insertEmp(?,?,?)}");
         /* This relies on a stored procedure in the MySQL database. Here's that code:
 		CREATE DEFINER=`root`@`localhost` PROCEDURE `insertEmp`(in empid numeric(10),in empname varchar(100),in empage numeric(10))
