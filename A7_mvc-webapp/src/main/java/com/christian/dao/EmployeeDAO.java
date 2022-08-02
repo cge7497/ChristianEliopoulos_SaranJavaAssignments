@@ -37,10 +37,24 @@ public class EmployeeDAO {
 		PreparedStatement pst = getCon().prepareStatement("select * from emp where id=?");
 		pst.setInt(1, id);
 		ResultSet rs = pst.executeQuery();
-
-		Employee emp = new Employee(rs.getInt(1), rs.getString(2), rs.getInt(3));
 		List<Employee> emps = new ArrayList<Employee>();
-		emps.add(emp);
+
+		if (rs.next()) {
+			Employee emp = new Employee(rs.getInt(1), rs.getString(2), rs.getInt(3));
+			emps.add(emp);
+		}
+		return emps;
+	}
+	
+	public static List<Employee> getEmployees() throws SQLException, ClassNotFoundException {
+		PreparedStatement pst = getCon().prepareStatement("select * from emp");
+		ResultSet rs = pst.executeQuery();
+		
+		List<Employee> emps = new ArrayList<Employee>();
+		while (rs.next()) {
+			Employee emp = new Employee(rs.getInt(1), rs.getString(2), rs.getInt(3));
+			emps.add(emp);
+		}
 		return emps;
 	}
 
@@ -64,14 +78,11 @@ public class EmployeeDAO {
 		return x;
 	}
 
-	public static int updateEmployee(int id, String attrib, String val) throws SQLException, ClassNotFoundException {
-		
-		// I put attrib in the string rather than as a ? parameter because doing so results in an SQL error.
-		// Based on research, it seems like prepareStatement optimizes based on the
-		// query, and does not anticipate me making a column name a parameter.
-		PreparedStatement pst = getCon().prepareStatement("update emp set " + attrib + "=? where id=?");
-		pst.setString(1, val);
-		pst.setInt(2, id);
+	public static int updateEmployee(int id, String name, int age) throws SQLException, ClassNotFoundException {
+		PreparedStatement pst = getCon().prepareStatement("update emp set name = ?, age = ? where id=?");
+		pst.setString(1, name);
+		pst.setInt(2, age);
+		pst.setInt(3, id);
 		int x = pst.executeUpdate();
 
 		return x;

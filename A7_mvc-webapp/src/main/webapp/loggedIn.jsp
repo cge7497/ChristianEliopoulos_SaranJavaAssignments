@@ -28,15 +28,18 @@
 		Employee ID: <input type="number" name="r_id"><br> <input
 			type="submit" value="Read Employee"> <input type="hidden"
 			name="operation" value="read" />
-
+	</form>
+	<form action="queryData" method="get">
+		<input type="submit" value="Read All Employees"> <input
+			type="hidden" name="operation" value="read all" />
 	</form>
 	<h2>Update</h2>
 	<form action="queryData" method="post">
 		Employee ID: <input type="number" name="up_id"><br> Name:
 		<input type="text" name="up_name"><br> Age: <input
-			type="number" name="up_age"><br>
-		<input type="submit" value="Update Employee"> <input
-			type="hidden" name="operation" value="update" />
+			type="number" name="up_age"><br> <input type="submit"
+			value="Update Employee"> <input type="hidden"
+			name="operation" value="update" />
 
 	</form>
 	<h2>Delete</h2>
