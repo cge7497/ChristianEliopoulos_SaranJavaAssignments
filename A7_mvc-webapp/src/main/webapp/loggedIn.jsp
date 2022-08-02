@@ -10,7 +10,7 @@
 <body>
 	<%
 	String name = (String) request.getAttribute("name");
-	if (!name.isEmpty()) {
+	if (name != null && !name.isEmpty()) {
 		out.println("<h1 style=color:CornFlowerBlue>Welcome " + name + "</h1>");
 	}
 	%>
@@ -19,25 +19,32 @@
 		Employee ID: <input type="number" name="cr_id"><br> Name:
 		<input type="text" name="cr_name"><br> Age: <input
 			type="number" name="cr_age"><br> <input type="submit"
-			value="Create Employee">
+			value="Create Employee"> <input type="hidden"
+			name="operation" value="create" />
 	</form>
 
 	<h2>Read</h2>
 	<form action="queryData" method="get">
 		Employee ID: <input type="number" name="r_id"><br> <input
-			type="submit" value="Read Employee">
+			type="submit" value="Read Employee"> <input type="hidden"
+			name="operation" value="read" />
+
 	</form>
 	<h2>Update</h2>
 	<form action="queryData" method="post">
 		Employee ID: <input type="number" name="up_id"><br> Name:
 		<input type="text" name="up_name"><br> Age: <input
-			type="number" name="up_age"><input type="submit"
-			value="Update Employee">
+			type="number" name="up_age"><br>
+		<input type="submit" value="Update Employee"> <input
+			type="hidden" name="operation" value="update" />
+
 	</form>
 	<h2>Delete</h2>
 	<form action="queryData" method="get">
 		Employee ID: <input type="number" name="del_id"><br> <input
-			type="submit" value="Login">
+			type="submit" value="Login"> <input type="hidden"
+			name="operation" value="delete" />
+
 	</form>
 </body>
 </html>

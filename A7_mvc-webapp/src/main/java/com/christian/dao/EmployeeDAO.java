@@ -1,22 +1,24 @@
-package com.christian.model;
+package com.christian.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.ResultSetMetaData;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Employees {
+import com.christian.model.Employee;
+
+public class EmployeeDAO {
 	
 	private static Connection con;
 	private static Connection getCon() throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/A6?user=root");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/A6?user=root");
 		}
 		return con;
 			
@@ -30,14 +32,16 @@ public class Employees {
 		// setupDatabase(con); //Uncomment this in order to set up database.
 	}
 	*/
-
-	public static ResultSet getEmployee(int id) throws SQLException, ClassNotFoundException {
+	// This will only return 1 employee. I return a list because it fits the the logic in displayResults.jsp.
+	public static List<Employee> getEmployee(int id) throws SQLException, ClassNotFoundException {
 		PreparedStatement pst = getCon().prepareStatement("select * from emp where id=?");
 		pst.setInt(1, id);
-		ResultSet emp = pst.executeQuery();
+		ResultSet rs = pst.executeQuery();
 
-		printData(emp);
-		return emp;
+		Employee emp = new Employee(rs.getInt(1), rs.getString(2), rs.getInt(3));
+		List<Employee> emps = new ArrayList<Employee>();
+		emps.add(emp);
+		return emps;
 	}
 
 	public static int deleteEmployee(int id) throws SQLException, ClassNotFoundException {
@@ -152,5 +156,4 @@ public class Employees {
 		cst.setInt(3, 40);
 		cst.execute();
 	}
-
 }

@@ -33,7 +33,7 @@ public class User {
 			return "";
 		}
 		else {
-			return rs.getString(1);
+			return rs.getString(1); // return the user's name to be displayed on page
 		}
 		
 	}
