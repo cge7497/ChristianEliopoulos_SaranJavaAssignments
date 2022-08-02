@@ -27,7 +27,6 @@ public class Controller extends HttpServlet{
 	protected void doPost(HttpServletRequest req,HttpServletResponse res)
 	throws ServletException, IOException{
 		res.setContentType("text/html");
-		PrintWriter pw=res.getWriter();
 		 String uname=req.getParameter("username");
 		 String pwd=req.getParameter("password");
 		 

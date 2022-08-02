@@ -15,7 +15,7 @@
 	}
 	%>
 	<h2>Create</h2>
-	<form action="create" method="post">
+	<form action="queryData" method="post">
 		Employee ID: <input type="number" name="cr_id"><br> Name:
 		<input type="text" name="cr_name"><br> Age: <input
 			type="number" name="cr_age"><br> <input type="submit"
@@ -23,19 +23,19 @@
 	</form>
 
 	<h2>Read</h2>
-	<form action="read" method="get">
+	<form action="queryData" method="get">
 		Employee ID: <input type="number" name="r_id"><br> <input
 			type="submit" value="Read Employee">
 	</form>
 	<h2>Update</h2>
-	<form action="read" method="post">
+	<form action="queryData" method="post">
 		Employee ID: <input type="number" name="up_id"><br> Name:
 		<input type="text" name="up_name"><br> Age: <input
 			type="number" name="up_age"><input type="submit"
 			value="Update Employee">
 	</form>
 	<h2>Delete</h2>
-	<form action="delete" method="get">
+	<form action="queryData" method="get">
 		Employee ID: <input type="number" name="del_id"><br> <input
 			type="submit" value="Login">
 	</form>
