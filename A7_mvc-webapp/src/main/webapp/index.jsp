@@ -1,6 +1,7 @@
 <html>
 <head>
 <link href="style.css" rel="stylesheet" type="text/css">
+<title>Log In</title>
 </head>
 <body>
 	<h2>Welcome to Christian's MVC Application! Please log in to

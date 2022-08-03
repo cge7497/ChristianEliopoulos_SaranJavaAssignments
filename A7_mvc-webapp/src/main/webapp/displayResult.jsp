@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Query Results</title>
 </head>
 
 <body>
@@ -29,15 +29,16 @@
 		out.println("Performed " + operation + " operation on " + amt + " entries.<br>");
 	}
 	if (emps != null && emps.size() >= 0) {
-		out.println("Employee(s) <br>");
+		out.println("<table><caption> Employee(s)<caption/><tr><th>ID</th><th>Name</th><th>Age</th></tr>");
 		final JspWriter out2 = out; //this is a work-around for an enclosing scope error on out.
 		emps.forEach((e) -> {
 			try {
-		out2.println("ID: " + e.getId() + "\tName: " + e.getName() + "\tAge: " + e.getAge() + "<br>");
+		out2.println("<tr><td>" + e.getId() + "</td><td>" + e.getName() + "</td><td>" + e.getAge() + "</td></tr>");
 			} catch (IOException exc) {
 		exc.printStackTrace();
 			}
 		});
+		out2.println("</table>");;
 	}
 	%>
 	<%@ include file="loggedIn.jsp"%>

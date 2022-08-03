@@ -18,7 +18,7 @@
 		<div>
 			<h2>Create</h2>
 			<form action="queryData" method="post">
-				Employee ID: <input type="number" name="cr_id"><br>
+				Employee ID: <input type="number" name="cr_id" value = 10><br>
 				Name: <input type="text" name="cr_name"><br> Age: <input
 					type="number" name="cr_age"><br> <input type="submit"
 					value="Create Employee"> <input type="hidden"
