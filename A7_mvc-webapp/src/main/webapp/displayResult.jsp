@@ -27,14 +27,13 @@
 
 	if (amt >= 0) {
 		out.println("Performed " + operation + " operation on " + amt + " entries.<br>");
-		out.println(request.getParameter("r_id"));
 	}
 	if (emps != null && emps.size() >= 0) {
-		out.println("Employee(s)");
+		out.println("Employee(s) <br>");
 		final JspWriter out2 = out; //this is a work-around for an enclosing scope error on out.
 		emps.forEach((e) -> {
 			try {
-		out2.println("ID: " + e.getId() + "\tName: " + e.getName() + "\tAge: " + e.getAge());
+		out2.println("ID: " + e.getId() + "\tName: " + e.getName() + "\tAge: " + e.getAge() + "<br>");
 			} catch (IOException exc) {
 		exc.printStackTrace();
 			}
